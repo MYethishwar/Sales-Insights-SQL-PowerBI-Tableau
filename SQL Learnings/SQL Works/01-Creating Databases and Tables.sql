@@ -21,7 +21,7 @@ collage_lolcation varchar(100)
 )
 
 #To see the structure of the table
-DESCRIBE collages_in_hyderabad;
+DESC collages_in_hyderabad;
 -- OR --
 SHOW COLUMNS FROM gurunanak;
 -- OR --
