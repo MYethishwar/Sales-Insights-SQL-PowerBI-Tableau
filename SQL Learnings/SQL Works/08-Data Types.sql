@@ -130,4 +130,40 @@ SELECT * FROM captions2;
 UPDATE captions2 SET text='I love you';
 
 
------ EXERSICE -----------
+----- EXERSICE ------
+----- What's a good use case for CHAR? -----
+	CREATE TABLE country(
+    state VARCHAR(100),
+    state_code CHAR(6),
+    state_abBR CHAR(2)
+    );
+    
+    INSERT INTO country(state, state_code, state_abbr)
+    VALUES('Telangana', '11212', 'TG'),
+		('Andhra Pradesh', '602909', 'AP');
+        
+SELECT * FROM country;
+
+----- FILL IN THE BLANKS -----
+----- VARCHAR(100), DECIMAL(8,2) , INT ---
+-- They both store datetime information, but there's a difference in the range, 
+-- TIMESTAMP has a smaller range. TIMESTAMP also takes up less space. 
+-- TIMESTAMP is used for things like meta-data about when something is created
+-- or updated.--
+SELECT CURTIME();
+SELECT CURDATE();
+SELECT DAYOFWEEK(NOW());
+SELECT DATE_FORMAT(NOW(), '%w') + 1;
+SELECT DAYNAME(CURDATE());
+SELECT DATE_FORMAT(birthdate, '%m/%d/%Y') FROM people;
+SELECT DATE_FORMAT(current_date(), '%M %dnd at %l:%i');
+
+CREATE TABLE tweets_table(
+content VARCHAR(100),
+username VARCHAR(100),
+created_on DATETIME DEFAULT CURRENT_TIMESTAMP);
+
+INSERT INTO tweets_table(content, username)
+VALUES('This is reality show', 'MYethishear');
+
+SELECT * FROM tweets_table;
