@@ -70,8 +70,67 @@ SELECT * FROM books WHERE released_year % 2 != 0;
 SELECT released_year,
 	CASE  
     WHEN released_year >= 2000 THEN 'It\'s 21st century'
-    ELSE '1900\'s'
+    WHEN released_year <= 2000 THEN '1900\'s Stuff'
+    ELSE 'NO STUFF HERE!!!'
     END AS  'CATEGORIZATION'
     FROM books;
     
+SELECT stock_quantity, 
+CASE 
+WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+WHEN stock_quantity BETWEEN 50 AND 100 THEN '**'
+ELSE '***'
+END AS 'STOCK'
+FROM books;
+
+SELECT stock_quantity, 
+CASE 
+WHEN stock_quantity <= 50 THEN '*'
+WHEN stock_quantity <=100 THEN '**'
+ELSE '***'
+END AS 'STOCK'
+FROM books;
+
+
+----- NULL -----
+SELECT * FROM books WHERE released_year IS NULL;
+
 SELECT * FROM books;
+
+DELETE FROM books WHERE author_lname IS NULL;
+
+USE BOOKS;
+----- EXERSISE -----
+----- Select all books before 1980 -----
+SELECT * FROM books WHERE released_year < 1980;
+
+----- Select all books written by eggers or chabon -----
+SELECT * FROM books WHERE author_lname IN ('Eggers', 'Chabon');
+
+----- SELECT all books written by lahiri publlished after  20000 -----
+SELECT * FROM books WHERE author_lname = 'Lahiri' AND released_year > 2000;
+
+----- select all books with page counts between 100 and 200 -----
+SELECT * FROM books WHERE pages BETWEEN 100 AND 200;
+
+----- SELECT all books where author_lname starts with a 'C' or an 'S' -----
+SELECT * FROM books WHERE author_lname LIKE 'C%' OR author_lname LIKE 'E%';
+
+SELECT title, 
+	CASE 
+    WHEN  title LIKE '%Stories%' THEN 'Short Stories'
+    WHEN title LIKE '%A Heartbreaking Work%' THEN 'Memoir'
+    ELSE 'Novel'
+    END AS Type
+FROM books;
+
+SELECT author_fname, author_lname,
+       CASE 
+           WHEN COUNT(*) > 1 THEN CONCAT(COUNT(*), ' books') 
+           ELSE CONCAT(COUNT(*), ' book') 
+       END AS COUNT
+FROM books 
+GROUP BY author_fname, author_lname;
+
+
+SELECT author_fname,author_lname, CONCAT(COUNT(pages), ' Books') FROM books GROUP BY author_fname, author_lname ;
