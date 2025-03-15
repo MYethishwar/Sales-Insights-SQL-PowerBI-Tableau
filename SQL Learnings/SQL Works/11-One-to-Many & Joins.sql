@@ -100,10 +100,14 @@ INSERT INTO papers (student_id, title, grade ) VALUES
 (2, 'De Montaigne and The Art of The Essay', 98),
 (4, 'Borges and Magical Realism', 89);
 
-SELECT * FROM papers;
+SELECT * FROM students;
+use shop;
 
-SELECT first_name, title, grade FROM students
+SELECT * FROM students
 JOIN papers ON students.id = papers.student_id ORDER BY grade DESC;
+
+SELECT * FROM papers
+JOIN students ON students.id = papers.student_id ORDER BY grade DESC;
 
 SELECT first_name, title, grade FROM students
 LEFT JOIN papers ON students.id = papers.student_id ;
