@@ -52,10 +52,18 @@ LIMIT 5;
 
 
 -- Find the users who have liked every single photo on the site 
-SELECT DISTINCT username FROM users
-    left JOIN photos ON  users.id = photos.user_id
-     inner JOIN likes ON users.id = likes.user_id;
-     
-     
-SELECT DISTINCT likes.user_id FROM photos
-JOIN likes ON photos.id = likes.photo_id;
+SELECT username, COUNT(photo_id) AS likes_count FROM users JOIN likes ON users.id = likes.user_id
+   GROUP BY username HAVING likes_count = (SELECT Count(*) 
+                    FROM   photos); ;
+   
+SELECT username, likes_count FROM (SELECT username, COUNT(photo_id) AS likes_count FROM users JOIN likes ON users.id = likes.user_id
+   GROUP BY username)AS user_likes_count where likes_count = (SELECT COUNT(id) FROM photos);
+   
+SELECT username, 
+       Count(*) AS num_likes 
+FROM   users 
+       INNER JOIN likes 
+               ON users.id = likes.user_id 
+GROUP  BY likes.user_id 
+HAVING num_likes = (SELECT Count(*) 
+                    FROM   photos); 
